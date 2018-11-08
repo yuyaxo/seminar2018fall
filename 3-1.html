@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        function test() {
+            var tweet = document.getElementById('tf3').value;
+            var userid = document.getElementById('tf1').value;
+            //window.alert(login + ":" + password + ":" + tweet);
+
+            var query = {
+                db: 'creco18',
+                userid: userid,
+                password: document.getElementById('tf2').value,
+                sql: 'insert into Tweets (name, tweet, time) values("' + userid + '","' + tweet + '",now());'
+            };
+
+            $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
+                //document.getElementById('result').innerHTML = data;
+            });
+        }
+
+        function test2() {
+            //問い合わせ事項を作る
+            var query = {};
+            query.userid = document.getElementById('tf1').value;
+            query.password = document.getElementById('tf2').value;
+            query.db = 'creco18';
+            query.sql = 'select * from Tweets order by time desc';
+
+            //問い合わせ事項を送る
+            $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
+                //結果を受け取る
+                document.getElementById('result').innerHTML = data;
+                var objects = JSON.parse(data);
+
+                //表を作る
+                var str = '';
+                str += '<table border="1">'
+                var len = objects.length;
+                for (var i = 0; i < len; i++) {
+                    var object = objects[i];
+                    str += '<tr>';
+                    for (key in object) {
+                        var value = object[key];
+                        str += '<td>';
+                        str += value;
+                        str += '</td>';
+                    }
+                    str += '</tr>';
+                }
+                str += '</table>'
+
+                //表を表示する
+                document.getElementById('result').innerHTML = str;
+            });
+        }
+    </script>
+</head>
+
+<body>
+    version 1.0
+    <h1>まいついったー</h1>
+    <input id="tf1" type="textfield">ログイン名
+    <br>
+    <input id="tf2" type="password">パスワード
+    <br>
+    <input id="tf3" type="textfield">
+    <button onclick="test()">click me</button>
+    <br>
+    <button onclick="test2()">click me</button>
+    <br>
+    <p id="result"></p>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        function() {
+            var x;
+
+            x = document.getElementById("tb1").value
+
+            if (x >= 5) {
+                x = x + 1;
+            }
+
+            for (var i = 0; i < 10; i++) {
+                x = x + 1;
+            }
+
+            var list = [];
+            list.push("a");
+            list.push("b");
+            list.push("c");
+
+            var list = ["a", "b", "c"];
+
+            var str;
+            str = str + "<ul>";
+            for (var i = 0; i < list.length; i++) {
+                str = str + "<li>";
+                str = str + list[i];
+                str = str + "</li>";
+            }
+            str = str + "</ul>";
+        }
+    </script>
+</head>
+
+<body>
+    <li>x</li>
+    x
+    x
+</body>
+
+</html>
+
+<button onclick="test()">click me</button>
+
+<ul>
+    <li>a</li>
+    <li>b</li>
+    <li>c</li>
+</ul>
+
+<table>
+    <tr>
+        <td>x</td>
+        <td>x</td>
+    </tr>
+    <tr>
+        <td>x</td>
+        <td>x</td>
+    </tr>
+</table>
+
+create table Tweets (name text, tweet text, time datetime);
+
+insert into Tweets (name, tweet, time) values ('matsuzawa', 'ゼミIIなう', now());
+
+select * from Tweets;
+
+select * from Tweets order by time desc limit 20;
