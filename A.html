@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        var x = 0;
+        var timer;
+        function tick() {
+            x++;
+            document.getElementById("result").innerHTML = x;
+        }
+        function button1pressed() {
+            timer = setInterval(tick, 1000);
+        }
+        function button2pressed() {
+            if (timer) {
+                clearInterval(timer);
+            }
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <button onclick="button1pressed()">A</button>
+    <button onclick="button2pressed()">B</button>
+
+    <hr>
+    <p id="result"></p>
+</body>
+
+</html>
