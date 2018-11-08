@@ -15,7 +15,12 @@
             sql: sql
         };
         $.post("http://dbkiso.si.aoyama.ac.jp/jsonapi/", query, function (data, textStatus) {
-
+            var objects = JSON.parse(data);
+            if (objects.result && objects.result === "fail") {
+                window.alert("login failed");
+            } else {
+                window.location.href = "http://www.google.com";
+            }
         }
         function button1pressed() {
 
