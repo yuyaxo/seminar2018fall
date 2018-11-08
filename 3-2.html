@@ -7,7 +7,7 @@
     <script>
         function button1Pressed() {
             var userid = document.getElementById('tf1').value;
-            var password = document.getElementById('tf2').value
+            var password = document.getElementById('tf2').value;
             var tweet = document.getElementById('tf3').value;
 
             var sql = 'insert into Tweets (name, tweet, time) values("' + userid + '","' + tweet + '",now());';
@@ -24,7 +24,7 @@
 
         function button2Pressed() {
             var userid = document.getElementById('tf1').value;
-            var password = document.getElementById('tf2').value
+            var password = document.getElementById('tf2').value;
 
             var sql = 'select * from Tweets order by time desc';
             var query = {
@@ -46,7 +46,7 @@
                     str += '<td>' + objects[i].time + '</td>';
                     str += '</tr>';
                 }
-                str += '</table>'
+                str += '</table>';
 
                 //表を表示する
                 document.getElementById('result').innerHTML = str;
