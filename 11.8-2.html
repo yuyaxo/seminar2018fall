@@ -5,11 +5,49 @@
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
+        var userid = window.localStorage.getItem("userid");
+        var password = window.localStorage.getItem("password");
+        var x = 0;
+        var timer;
+        function tick() {
+            var sql = "select * from Tweets order by time desc";
+            var query = {
+                db: 'creco18',
+                userid: userid,
+                password: password,
+                sql: sql
+            };
+
+            $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
+                document.getElementById('result').innerHTML = data;
+                var objects = JSON.parse(data);
+                var str = "";
+                str = str + "<table border='1'>"
+                var len = objects.length;
+                for (var i = 0; i < len; i++) {
+                    str += '<tr>';
+                    str += '<td>' + objects[i].name + '</td>';
+                    str += '<td>' + objects[i].tweet + '</td>';
+                    str += '<td>' + objects[i].time + '</td>';
+                    str += '</tr>';
+                }
+                str += '</table>';
+                document.getElementById("results").innerHTML = str;
+
+
+            });
+        }
+        $(window).on("load", function () {
+            timer = setInterval(tick, 2000);
+        });
+
+
+
+
         function button1Pressed() {
 
             var tweet = document.getElementById('tf1').value;
-            var userid = window.localStorage.getItem("userid");
-            var password = window.localStorage.getItem("password");
+
             var sql = 'insert into Tweets (name, tweet, time) values("' + userid + '","' + tweet + '",now());';
             var query = {
                 db: 'creco18',
@@ -19,20 +57,8 @@
             };
             $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
                 document.getElementById('result').innerHTML = data;
+
             });
-        }
-        //表を表示する
-        document.getElementById('result').innerHTML = str;
-            });
-        var x = 0;
-        var timer;
-        function tick() {
-            x++;
-            document.getElementById("result").innerHTML = x;
-        }
-        function button1pressed() {
-            timer = setInterval(tick, 1000);
-        }
         }
     </script>
 </head>
@@ -41,7 +67,7 @@
     version 1.0
     <h1>まいtwitter</h1>
     <br>
-    <input id="tf3" type="textfield">
+    <input id="tf1" type="textfield">
     <button onclick="button1Pressed()">tweet</button>
     <br>
     <p id="result"></p>
