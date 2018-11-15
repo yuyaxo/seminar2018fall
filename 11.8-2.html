@@ -6,10 +6,10 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
         function button1Pressed() {
-            var userid = document.getElementById('tf1').value;
-            var password = document.getElementById('tf2').value;
-            var tweet = document.getElementById('tf3').value;
 
+            var tweet = document.getElementById('tf1').value;
+            var userid = window.localStorage.getItem("userid");
+            var password = window.localStorage.getItem("password");
             var sql = 'insert into Tweets (name, tweet, time) values("' + userid + '","' + tweet + '",now());';
             var query = {
                 db: 'creco18',
@@ -21,37 +21,18 @@
                 document.getElementById('result').innerHTML = data;
             });
         }
-
-        function button2Pressed() {
-            var userid = document.getElementById('tf1').value;
-            var password = document.getElementById('tf2').value;
-
-            var sql = 'select * from Tweets order by time desc';
-            var query = {
-                db: 'creco18',
-                userid: userid,
-                password: password,
-                sql: sql
-            };
-            $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
-                var objects = JSON.parse(data);
-
-                var str = '';
-                str += '<table border="1">'
-                var len = objects.length;
-                for (var i = 0; i < len; i++) {
-                    str += '<tr>';
-                    str += '<td>' + objects[i].name + '</td>';
-                    str += '<td>' + objects[i].tweet + '</td>';
-                    str += '<td>' + objects[i].time + '</td>';
-                    str += '</tr>';
-                }
-                str += '</table>';
-
-                //表を表示する
-                document.getElementById('result').innerHTML = str;
+        //表を表示する
+        document.getElementById('result').innerHTML = str;
             });
-
+        var x = 0;
+        var timer;
+        function tick() {
+            x++;
+            document.getElementById("result").innerHTML = x;
+        }
+        function button1pressed() {
+            timer = setInterval(tick, 1000);
+        }
         }
     </script>
 </head>
@@ -59,15 +40,9 @@
 <body>
     version 1.0
     <h1>まいtwitter</h1>
-    <input id="tf1" type="textfield">ログイン名
-    <br>
-    <input id="tf2" type="password">パスワード
     <br>
     <input id="tf3" type="textfield">
-    <button onclick="button3Pressed()">userinf</button>
     <button onclick="button1Pressed()">tweet</button>
-    <hr>
-    <button onclick="button2Pressed()">update</button>
     <br>
     <p id="result"></p>
 </body>

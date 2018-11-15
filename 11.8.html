@@ -8,6 +8,8 @@
         function button1pressed() {
             var userid = document.getElementById("tf1").value;
             var password = document.getElementById("tf2").value;
+            window.localStorage.setItem("userid", userid);
+            window.localStorage.setItem("password", password);
             var sql = "show tables";
             var query = {
                 db: "creco18",
@@ -20,9 +22,8 @@
                 if (objects.result && objects.result === "fail") {
                     window.alert("login failed");
                 } else {
-                    window.localStorage.setItem("userid", userid);
-                    window.localStorage.setItem("password", password);
-                    window.location.href = "http://www.google.com";
+
+                    window.location.href = "file:///C:/Users/yu-ya/OneDrive/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88/seminar2018fall/11.8-2.html";
                 }
             });
         };
