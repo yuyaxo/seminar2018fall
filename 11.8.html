@@ -20,6 +20,8 @@
                 if (objects.result && objects.result === "fail") {
                     window.alert("login failed");
                 } else {
+                    window.localStorage.setItem("userid", userid);
+                    window.localStorage.setItem("password", password);
                     window.location.href = "http://www.google.com";
                 }
             });
