@@ -22,7 +22,7 @@
                 document.getElementById('result').innerHTML = data;
                 var objects = JSON.parse(data);
                 var str = "";
-                str = str + "<table border='1'>"
+                str += "<table border='1'>"
                 var len = objects.length;
                 for (var i = 0; i < len; i++) {
                     str += '<tr>';
@@ -32,7 +32,7 @@
                     str += '</tr>';
                 }
                 str += '</table>';
-                document.getElementById("results").innerHTML = str;
+                document.getElementById("result").innerHTML = str;
 
 
             });

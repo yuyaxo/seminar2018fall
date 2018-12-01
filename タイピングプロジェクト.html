@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(window).on('load', function () {
+            var x;
+            var y = 0;
+            var timer;
+            timer = setInterval(tick, 1000);
+            function tick() {
+                y++;
+                document.getElementById("result").innerHTML = y;
+            }
+            x = "私たちは松澤ゼミです";
+            document.getElementById("sentence").innerHTML = x;
+        })
+    </script>
+
+</head>
+
+<body>
+    <p id="sentence"></p>
+    <br>
+    <input id="tf1" type="textfield">
+    <button onclick="button1()">判定</button>
+    <p id="result"></p>
+</body>
+
+</html>
