@@ -15,7 +15,11 @@
             function tick() {
                 y++;
                 document.getElementById("result").innerHTML = y;
+                if (y > 59) {
+                    clearInterval(timer);
+                }
             }
+
             x = "私たちは松澤ゼミです";
             document.getElementById("sentence").innerHTML = x;
         })
