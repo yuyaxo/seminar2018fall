@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
         function button1pressed() {
@@ -11,8 +13,8 @@
             var sql = "show tables";
             var query = {
                 db: "creco18",
-                userid: userid,
-                password: password,
+                userid: a8116125,
+                password: 01234OlzBk,
                 sql: sql
             };
             $.post("http://dbkiso.si.aoyama.ac.jp/jsonapi/", query, function (data, textStatus) {
@@ -21,8 +23,8 @@
                     window.alert("login failed");
                 } else {
                     window.localStorage.setItem("userid", userid)
-                    window.localStorage.setItem("password")
-                    window.location.href = "http://www.google.com";
+                    window.localStorage.setItem("password", password)
+                    window.location.href = "file:///C:/Users/yu-ya/OneDrive/ドキュメント/seminar2018fall/タイピングプロジェクト.html";
                 }
             });
         };
@@ -32,9 +34,9 @@
 
 <body>
     <h1>ログイン</h1>
-    ログイン<input id="tf1" type="textfield">
+    学籍番号<input id="tf1" type="textfield">
     <br>
-    パスワード <input id="tf2" type="password">
+    名前 <input id="tf2" type="password">
     <br>
     <button onclick="button1pressed()">login</button>
 </body>
