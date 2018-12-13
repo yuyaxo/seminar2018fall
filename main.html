@@ -7,7 +7,8 @@
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>
-
+            var studentid = window.localStorage.getItem("userid")
+            var password = window.localStorage.getItem("password")
             $(window).on('load', function () {
                 var forms = document.getElementsByTagName('form');
                 var form = forms[0];
@@ -39,8 +40,7 @@
                     };
 
                 };
-                window.localStorage.getItem("userid", studentid)
-                window.localStorage.getItem("password", password)
+
 
                 var sql = 'select * from Test';　//問題文の表示
                 var query = {
