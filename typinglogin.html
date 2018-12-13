@@ -8,13 +8,14 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
         function button1pressed() {
-            var userid = document.getElementById("tf1").value;
+            var studentid = document.getElementById("tf1").value;
             var password = document.getElementById("tf2").value;
-            var sql = "show tables";
+            var name = document.getElementById("tf3").value;
+            var sql = 'insert into Students (studentid, name, time) values("' + studentid + '","' + name + '", now());'
             var query = {
-                db: "creco18",
-                userid: a8116125,
-                password: 01234OlzBk,
+                db: "Pasokon",
+                userid: studentid,
+                password: password,
                 sql: sql
             };
             $.post("http://dbkiso.si.aoyama.ac.jp/jsonapi/", query, function (data, textStatus) {
@@ -22,11 +23,12 @@
                 if (objects.result && objects.result === "fail") {
                     window.alert("login failed");
                 } else {
-                    window.localStorage.setItem("userid", userid)
+                    window.localStorage.setItem("userid", studentid)
                     window.localStorage.setItem("password", password)
                     window.location.href = "file:///C:/Users/yu-ya/OneDrive/ドキュメント/seminar2018fall/タイピングプロジェクト.html";
                 }
             });
+
         };
 
     </script>
@@ -36,8 +38,9 @@
     <h1>ログイン</h1>
     学籍番号<input id="tf1" type="textfield">
     <br>
-    名前 <input id="tf2" type="password">
+    パスワード<input id="tf2" type="password">
     <br>
+    名前<input id="tf3" type="textfield">
     <button onclick="button1pressed()">login</button>
 </body>
 

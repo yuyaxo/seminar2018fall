@@ -1,90 +1,134 @@
-<html>
+<a html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
 
-        var userid = window.localStorage.getItem('userid');
-        var password = window.localStorage.getItem('password')
+            $(window).on('load', function () {
+                var forms = document.getElementsByTagName('form');
+                var form = forms[0];
+                form.addEventListener('submit', function (evt) {
+                    //alert('SUBMIT ボタンが押されました');
+                    button1();
 
-        $(window).on('load', function () {
-            var x;
-            var y = 0;
-            var timer;
-            timer = setInterval(tick, 1000);
-            function tick() {
-                y++;
-                document.getElementById("result").innerHTML = y;
-                if (y > 59) {
-                    clearInterval(timer);
-                }
+                    evt.preventDefault();
+                });
 
-            }
+                var count;　//正解数のカウント
+                count = 0;
+                document.getElementById("number").innerHTML = count;
 
-            x = "私たちは松澤ゼミです";
-            document.getElementById("sentence").innerHTML = x;
+                var y = 0;//タイマー
+                var timer;
+                timer = setInterval(tick, 1000);
+                function tick() {
+                    //10より小さいときはカウントする
+                    if (y < 10) {
+                        y++;
+                        document.getElementById("result").innerHTML = y;
+                    }
+                    //10になったらやめる　
+                    else if (y === 10) {
+                        clearInterval(timer);
+                        window.alert("パソコン");
 
-            var sql = 'select * from Test';
-            var query = {
-                db: 'Pasokon',
-                userid: 'a8116125',
-                password: '01234OlzBk',
-                sql: sql
-            };
+                    };
 
-            $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
-                document.getElementById('result1').innerHTML = data;
-                var objects = JSON.parse(data);
+                };
+                window.localStorage.getItem("userid", studentid)
+                window.localStorage.getItem("password", password)
 
-                var str = '';
-                str += '<table border="1">'
-                var len = objects.length;
-                for (var i = 0; i < len; i++) {
-                    str += '<tr>';
-                    str += '<td>' + objects[i].sentences + '</td>';
-                    str += '</tr>';
-                }
-                str += '</table>';
+                var sql = 'select * from Test';　//問題文の表示
+                var query = {
+                    db: 'Pasokon',
+                    userid: studentid,
+                    password: password,
+                    sql: sql
+                };
 
-                //表を表示する
-                document.getElementById('result1').innerHTML = str;
+                $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
+                    document.getElementById('result1').innerHTML = data;
+                    var objects = JSON.parse(data);
 
+                    var str;
+                    str = objects[0].sentences;
+
+                    document.getElementById('result1').innerHTML = str;
+
+                });
             });
 
-        })
 
 
 
+            function button1() {
+                //window.alert("パソコン");
 
-        function button1() {
-            //window.alert("パソコン");
-            var x;
-            x = document.getElementById("sentence").innerHTML;
-            var answer;
-            answer = document.getElementById("tf1").value;
-            if (x === answer) {
-                window.alert("パソコン");
+                var x;
+                x = document.getElementById("result1").innerHTML;
+                var answer;
+                answer = document.getElementById("tf1").value;
+                if (x === answer) {
+                    //window.alert("パソコン");
+                    document.getElementById("tf1").value = "";
 
-            } else {
-                document.getElementById("tf1").value = "";
+                    var sql = 'select * from Test';
+                    var query = {
+                        db: 'Pasokon',
+                        userid: studentid,
+                        password: password,
+                        sql: sql
+                    };
+                    $.post('http://dbkiso.si.aoyama.ac.jp/jsonapi/', query, function (data, textStatus) {
+                        document.getElementById('result1').innerHTML = data;
+                        var objects = JSON.parse(data);
+
+                        var a;
+                        a = Math.random();
+                        a = Math.floor(a * 10);
+                        a = a + 1;
+
+                        var str;
+                        str = objects[a].sentences;
+
+                        document.getElementById('result1').innerHTML = str;
+
+                        var count;
+                        count = document.getElementById('number').innerHTML;
+                        count = parseInt(count);
+                        count = count + 1;
+                        document.getElementById('number').innerHTML = count;
+
+                    });
+
+                } else {
+                    document.getElementById("tf1").value = "";
+                }
+
             }
-        }
-    </script>
+        </script>
 
-</head>
+    </head>
 
-<body>
-    <p id="sentence"></p>
-    <p id="result1"></p>
-    <br>
-    <input id="tf1" type="textfield">
-    <button onclick="button1()">判定</button>
+    <body>
+        <form action='' method='post'>
 
-    <p id="result"></p>
-</body>
+            <p id="sentence"></p>
+            <p id="result1"></p>
+            <br>
+            <input id="tf1" type="textfield">
 
-</html>
+            <button type="submit" onclick="button1()">判定</button>
+            <p>正解数</p>
+            <p id="number"></p>
+            <br>
+            <p id="result"></p>
+
+        </form>
+    </body>
+
+    </html>
